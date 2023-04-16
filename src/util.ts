@@ -45,7 +45,7 @@ export async function get_entry(title: string): Promise<string | boolean> {
         fs.readFile(`${entries_path}/${title}.md`, 'utf8', (err, data) => {
             if (err) {
                 console.error(err)
-                reject(false)
+                resolve(false)
             }
             resolve(data)
         })

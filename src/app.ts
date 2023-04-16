@@ -13,13 +13,24 @@ async function main() {
     
     app.get('/', async (req, res) => {
         const entries = await list_entries()
-        res.render('template', {entries: entries})
+        res.render('template', {page: 'index', entries: entries})
     })
 
     app.get('/wiki/:title', async (req, res) => {
         const title = req.params.title
         const entry = await get_entry(title);
-        res.send(entry)
+        if (entry)
+            res.render('template', {
+                page: 'entry', 
+                title: title, 
+                content: entry
+            })
+        else
+            res.render('template', {
+                page: 'entry', 
+                title: 'Not found ¯\\_(ツ)_/¯', 
+                content: ''
+            })
     })
     
     app.listen(port, () => 
