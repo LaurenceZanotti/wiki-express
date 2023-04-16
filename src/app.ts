@@ -9,8 +9,12 @@ async function main() {
     const app = express()
     
     app.set('view engine', 'ejs')
+    app.use(express.static('static'))
     
-    app.get('/', (req, res) => res.render('index', { title: "Salve", message:"Aoba aoba, d boa?"}))
+    app.get('/', async (req, res) => {
+        const entries = await list_entries()
+        res.render('template', {entries: entries})
+    })
     
     app.listen(port, () => console.log(`App running at http://localhost:${port}`))
 }
