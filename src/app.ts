@@ -15,9 +15,16 @@ async function main() {
         const entries = await list_entries()
         res.render('template', {entries: entries})
     })
-    
-    app.listen(port, () => console.log(`App running at http://localhost:${port}`))
-}
 
+    app.get('/wiki/:title', async (req, res) => {
+        const title = req.params.title
+        const entry = await get_entry(title);
+        res.send(entry)
+    })
+    
+    app.listen(port, () => 
+        console.log(`App running at http://localhost:${port}`)
+    )
+}
 
 main()
