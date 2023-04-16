@@ -12,7 +12,12 @@ async function main() {
     app.use(express.static('static'))
     
     app.get('/', async (req, res) => {
+        const search = typeof req.query.q == 'string' ? req.query.q : ''
         const entries = await list_entries()
+
+        if (entries.includes(search))    
+            res.redirect(`/wiki/${search}`)    
+            
         res.render('template', {page: 'index', entries: entries})
     })
 
