@@ -24,12 +24,14 @@ export async function list_entries(): Promise<string[]> {
  * content. If an existing entry with the same title exists, 
  * it is replaced.
  */
-export function save_entry(title: string, content: string): boolean {
-    fs.writeFile(`${entries_path}/${title}.md`, content, (err) => {
-        if (err) console.error(err) 
-        return false 
-    })
-    return true
+export async function save_entry(title: string, content: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+        fs.writeFile(`${entries_path}/${title}.md`, content, (err) => {
+            if (err) console.error(err) 
+            reject(false)
+        })
+        resolve(true)
+    })    
 }
 
 /**
