@@ -34,6 +34,18 @@ export function save_entry(title: string, content: string): boolean {
 
 /**
  * Retrieves an encyclopedia entry by its title. If no such 
- * entry exists, the function returns None.
+ * entry exists, the function returns false.
  */
-export function get_entry(title: string) {}
+export async function get_entry(title: string): Promise<string | boolean> {
+    return new Promise((resolve, reject) => {
+        fs.readFile(`${entries_path}/${title}.md`, 'utf8', (err, data) => {
+            if (err) {
+                console.error(err)
+                reject(false)
+            } else {
+                resolve(data)
+            }
+        })
+        return false
+    })
+}
