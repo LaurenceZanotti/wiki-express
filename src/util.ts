@@ -12,7 +12,9 @@ export async function list_entries(): Promise<string[]> {
             if (err) reject(err)
             else {
                 const re = RegExp(/\.md$/)
-                const file_list = files.filter(file => re.test(file))
+                const file_list = files
+                    .filter(file => re.test(file))
+                    .map(files => files.replace(re, ''))
                 resolve(file_list)
             }
         })
