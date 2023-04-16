@@ -24,7 +24,13 @@ export async function list_entries(): Promise<string[]> {
  * content. If an existing entry with the same title exists, 
  * it is replaced.
  */
-export function save_entry(title: string, content: string) {}
+export function save_entry(title: string, content: string): boolean {
+    fs.writeFile(`${entries_path}/${title}.md`, content, (err) => {
+        if (err) console.error(err) 
+        return false 
+    })
+    return true
+}
 
 /**
  * Retrieves an encyclopedia entry by its title. If no such 
