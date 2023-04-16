@@ -50,6 +50,6 @@ export async function get_entry(title: string): Promise<string | boolean> {
                 resolve(data)
             }
         })
-        return false
+        reject(false)
     })
 }
