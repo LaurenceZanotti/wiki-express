@@ -46,10 +46,8 @@ export async function get_entry(title: string): Promise<string | boolean> {
             if (err) {
                 console.error(err)
                 reject(false)
-            } else {
-                resolve(data)
             }
+            resolve(data)
         })
-        reject(false)
     })
 }
